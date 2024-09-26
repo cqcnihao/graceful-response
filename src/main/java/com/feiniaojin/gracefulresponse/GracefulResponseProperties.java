@@ -1,9 +1,12 @@
 package com.feiniaojin.gracefulresponse;
 
+import com.feiniaojin.gracefulresponse.data.ExceptionAliasConfig;
 import com.feiniaojin.gracefulresponse.defaults.DefaultConstants;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * 核心配置类.
@@ -55,7 +58,7 @@ public class GracefulResponseProperties {
     /**
      * Validate异常码，不提供的话默认DefaultConstants.DEFAULT_ERROR_CODE
      */
-    private String defaultValidateErrorCode = DefaultConstants.DEFAULT_ERROR_CODE;
+    private String defaultValidateErrorCode;
 
     /**
      * 例外包路径
@@ -63,11 +66,47 @@ public class GracefulResponseProperties {
     private List<String> excludePackages;
 
     /**
+     * 例外返回类型
+     */
+    private Set<Class<?>> excludeReturnTypes;
+
+    /**
+     * 例外放行的URL
+     */
+    private List<String> excludeUrls;
+
+    /**
+     * 例外放行的异常类型
+     */
+    private Set<Class<?>> excludeExceptionTypes;
+
+    /**
+     * 例外放行的异常包路径
+     */
+    private List<String> excludeExceptionPackages;
+
+    /**
      * 不使用@ExceptionMapper和@ExceptionAliasFor修饰的原生异常
      * 是否使用异常信息Throwable类的detailMessage进行返回
      * originExceptionUsingDetailMessage=false，则msg=defaultErrorMsg
      */
     private Boolean originExceptionUsingDetailMessage = false;
+
+    /**
+     * 自定义需要支持的JSON转换器
+     */
+    private String jsonHttpMessageConverter;
+
+    /**
+     * 国际化支持
+     */
+    private Boolean i18n = false;
+
+    private Integer defaultHttpStatusCodeOnValidationError;
+
+    private Integer defaultHttpStatusCodeOnError = 200;
+
+    private Map<Class<?>, ExceptionAliasConfig> exceptionAliasConfigMap;
 
     public boolean isPrintExceptionInGlobalAdvice() {
         return printExceptionInGlobalAdvice;
@@ -141,11 +180,83 @@ public class GracefulResponseProperties {
         this.excludePackages = excludePackages;
     }
 
+    public Set<Class<?>> getExcludeReturnTypes() {
+        return excludeReturnTypes;
+    }
+
+    public void setExcludeReturnTypes(Set<Class<?>> excludeReturnTypes) {
+        this.excludeReturnTypes = excludeReturnTypes;
+    }
+
     public Boolean getOriginExceptionUsingDetailMessage() {
         return originExceptionUsingDetailMessage;
     }
 
     public void setOriginExceptionUsingDetailMessage(Boolean originExceptionUsingDetailMessage) {
         this.originExceptionUsingDetailMessage = originExceptionUsingDetailMessage;
+    }
+
+    public String getJsonHttpMessageConverter() {
+        return jsonHttpMessageConverter;
+    }
+
+    public void setJsonHttpMessageConverter(String jsonHttpMessageConverter) {
+        this.jsonHttpMessageConverter = jsonHttpMessageConverter;
+    }
+
+    public List<String> getExcludeUrls() {
+        return excludeUrls;
+    }
+
+    public void setExcludeUrls(List<String> excludeUrls) {
+        this.excludeUrls = excludeUrls;
+    }
+
+    public Boolean getI18n() {
+        return i18n;
+    }
+
+    public void setI18n(Boolean i18n) {
+        this.i18n = i18n;
+    }
+
+    public Integer getDefaultHttpStatusCodeOnError() {
+        return defaultHttpStatusCodeOnError;
+    }
+
+    public void setDefaultHttpStatusCodeOnError(Integer defaultHttpStatusCodeOnError) {
+        this.defaultHttpStatusCodeOnError = defaultHttpStatusCodeOnError;
+    }
+
+    public Integer getDefaultHttpStatusCodeOnValidationError() {
+        return defaultHttpStatusCodeOnValidationError;
+    }
+
+    public void setDefaultHttpStatusCodeOnValidationError(Integer defaultHttpStatusCodeOnValidationError) {
+        this.defaultHttpStatusCodeOnValidationError = defaultHttpStatusCodeOnValidationError;
+    }
+
+    public Set<Class<?>> getExcludeExceptionTypes() {
+        return excludeExceptionTypes;
+    }
+
+    public void setExcludeExceptionTypes(Set<Class<?>> excludeExceptionTypes) {
+        this.excludeExceptionTypes = excludeExceptionTypes;
+    }
+
+    public List<String> getExcludeExceptionPackages() {
+        return excludeExceptionPackages;
+    }
+
+    public void setExcludeExceptionPackages(List<String> excludeExceptionPackages) {
+        this.excludeExceptionPackages = excludeExceptionPackages;
+    }
+
+    public Map<Class<?>, ExceptionAliasConfig> getExceptionAliasConfigMap() {
+        return exceptionAliasConfigMap;
+    }
+
+    public void setExceptionAliasConfigMap(Map<Class<?>, ExceptionAliasConfig> exceptionAliasConfigMap) {
+        this.exceptionAliasConfigMap = exceptionAliasConfigMap;
     }
 }

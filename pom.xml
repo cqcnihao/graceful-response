@@ -6,7 +6,7 @@
 
     <groupId>com.feiniaojin</groupId>
     <artifactId>graceful-response</artifactId>
-    <version>3.3.1-boot3</version>
+    <version>5.0.1-boot3</version>
     <name>Graceful Response for Boot3</name>
     <description>Help Spring Boot web application responses gracefully!</description>
     <url>https://github.com/feiniaojin/graceful-response.git</url>
@@ -33,13 +33,22 @@
     </developers>
 
     <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <maven.compiler.encoding>UTF-8</maven.compiler.encoding>
-        <maven.compiler.source>17</maven.compiler.source>
-        <maven.compiler.target>17</maven.compiler.target>
-        <spring.boot.version>3.2.0</spring.boot.version>
-        <slf4j.version>2.0.9</slf4j.version>
+        <!--JDK版本限定-->
+        <java.version>17</java.version>
+        <!--代码资源文件编码限定-->
+        <encoding>UTF-8</encoding>
+
+        <maven.compiler.source>${java.version}</maven.compiler.source>
+        <maven.compiler.target>${java.version}</maven.compiler.target>
+        <maven.compiler.encoding>${encoding}</maven.compiler.encoding>
+        <project.build.sourceEncoding>${encoding}</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>${encoding}</project.reporting.outputEncoding>
+        <!--跳过测试-->
+        <skipTests>true</skipTests>
+
+
+        <spring.boot.version>3.2.5</spring.boot.version>
+        <slf4j.version>2.0.13</slf4j.version>
     </properties>
 
     <dependencies>
@@ -89,6 +98,28 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <version>${spring.boot.version}</version>
             <scope>test</scope>
+            <exclusions>
+                <exclusion>
+                    <artifactId>hamcrest</artifactId>
+                    <groupId>org.hamcrest</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>json-smart</artifactId>
+                    <groupId>net.minidev</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>byte-buddy</artifactId>
+                    <groupId>net.bytebuddy</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>jakarta.xml.bind-api</artifactId>
+                    <groupId>jakarta.xml.bind</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>slf4j-api</artifactId>
+                    <groupId>org.slf4j</groupId>
+                </exclusion>
+            </exclusions>
         </dependency>
     </dependencies>
 

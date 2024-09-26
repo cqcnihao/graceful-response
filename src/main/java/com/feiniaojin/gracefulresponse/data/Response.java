@@ -9,6 +9,7 @@ public interface Response {
     /**
      * 设置响应行
      *
+     * @param statusLine 状态行
      */
     void setStatus(ResponseStatus statusLine);
 
